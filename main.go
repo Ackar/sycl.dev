@@ -152,7 +152,7 @@ func main() {
 	log.Info("Starting...")
 	fs := http.FileServer(http.Dir("static"))
 	multi := &polyHandler{consoleHandler, fs.ServeHTTP}
-	if err := http.ListenAndServe(":8080", multi); err != nil {
+	if err := http.ListenAndServe(":80", multi); err != nil {
 		panic(err)
 	}
 }
