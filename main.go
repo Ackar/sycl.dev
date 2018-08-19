@@ -149,6 +149,7 @@ func (h *polyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	log.SetFormatter(&log.JSONFormatter{})
 	log.Info("Starting...")
 	fs := http.FileServer(http.Dir("static"))
 	multi := &polyHandler{consoleHandler, fs.ServeHTTP}

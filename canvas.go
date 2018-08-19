@@ -5,31 +5,36 @@ import (
 	"io"
 )
 
-type color int
+// Color is an ASCII color
+type Color int
 
+// Color constants
 const (
-	black color = iota
-	blue
-	brown
-	white
-	green
+	Black Color = iota
+	Blue
+	Brown
+	White
+	Green
 )
 
-func (c color) GetCode() int {
+// GetCode returns the ANSI code associated with the color
+// See https://en.wikipedia.org/wiki/ANSI_escape_code
+func (c Color) GetCode() int {
 	switch c {
-	case blue:
+	case Blue:
 		return 39
-	case brown:
+	case Brown:
 		return 130
-	case white:
+	case White:
 		return 15
-	case green:
+	case Green:
 		return 70
 	default:
 		return 0
 	}
 }
 
+// Canvas is an ASCII canvas
 type Canvas struct {
 	bg     [][]byte
 	fg     [][]byte
@@ -39,6 +44,7 @@ type Canvas struct {
 	writer io.Writer
 }
 
+// NewCanvas creates a new Canvas with the given dimensions
 func NewCanvas(width, height int, writer io.Writer) *Canvas {
 	res := &Canvas{
 		width:  width,
@@ -60,6 +66,7 @@ func NewCanvas(width, height int, writer io.Writer) *Canvas {
 	return res
 }
 
+// Clear reset the canvas to its initial blank state
 func (c *Canvas) Clear() {
 	for i := 0; i < c.height; i++ {
 		c.bg[i] = make([]byte, c.width)
@@ -71,17 +78,18 @@ func (c *Canvas) Clear() {
 	}
 }
 
+// DisplayCanvas writes the canvas to its writer
 func (c *Canvas) DisplayCanvas() {
 	for y, line := range c.chars {
 		lastBg := -1
 		lastFg := -1
 		for x, char := range line {
-			bg := color(int(c.bg[y][x]) - '0').GetCode()
+			bg := Color(int(c.bg[y][x]) - '0').GetCode()
 			if bg != lastBg {
 				fmt.Fprintf(c.writer, "\033[48;5;%dm", bg)
 				lastBg = bg
 			}
-			fg := color(int(c.fg[y][x]) - '0').GetCode()
+			fg := Color(int(c.fg[y][x]) - '0').GetCode()
 			if fg != lastFg {
 				fmt.Fprintf(c.writer, "\033[38;5;%dm", fg)
 				lastFg = fg
@@ -92,6 +100,7 @@ func (c *Canvas) DisplayCanvas() {
 	}
 }
 
+// DrawSprite draws a sprite into the canvas
 func (c *Canvas) DrawSprite(s *Sprite) {
 	for y, line := range s.chars {
 		posY := y + s.posY
