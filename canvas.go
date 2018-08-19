@@ -88,7 +88,7 @@ func (c *Canvas) DisplayCanvas() {
 			}
 			fmt.Fprintf(c.writer, "%c", char)
 		}
-		fmt.Fprintf(c.writer, "\n")
+		fmt.Fprintf(c.writer, "\033[0m\n")
 	}
 }
 
