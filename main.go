@@ -34,7 +34,7 @@ func (d *terminalDisplayer) writeHeader() {
 	d.writeAndFlush("                              \033[32mSylvain Cleymans\033[0m\n")
 	d.writeAndFlush("                              ----------------\n")
 	d.writeAndFlush("                             Software Engineer\n")
-	d.writeAndFlush("                              contact@sycl.io\n")
+	d.writeAndFlush("                              contact@sycl.dev\n")
 }
 
 func (d *terminalDisplayer) render() {
@@ -153,7 +153,7 @@ func main() {
 	log.Info("Starting...")
 	fs := http.FileServer(http.Dir("static"))
 	multi := &polyHandler{consoleHandler, fs.ServeHTTP}
-	if err := http.ListenAndServe(":80", multi); err != nil {
+	if err := http.ListenAndServe(":8080", multi); err != nil {
 		panic(err)
 	}
 }
