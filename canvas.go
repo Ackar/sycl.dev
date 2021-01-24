@@ -15,6 +15,7 @@ const (
 	Brown
 	White
 	Green
+	Yellow
 )
 
 // GetCode returns the ANSI code associated with the color
@@ -29,6 +30,8 @@ func (c Color) GetCode() int {
 		return 15
 	case Green:
 		return 70
+	case Yellow:
+		return 33
 	default:
 		return 0
 	}
@@ -58,7 +61,7 @@ func NewCanvas(width, height int, writer io.Writer) *Canvas {
 		res.bg[i] = make([]byte, width)
 		res.fg[i] = make([]byte, width)
 		res.chars[i] = make([]byte, width)
-		for j, _ := range res.chars[i] {
+		for j := range res.chars[i] {
 			res.chars[i][j] = ' '
 		}
 	}

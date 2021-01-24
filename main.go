@@ -24,6 +24,10 @@ func (d *terminalDisplayer) writeAndFlush(s string) {
 	d.flush()
 }
 
+func (d *terminalDisplayer) write(s string) {
+	d.w.Write([]byte(s))
+}
+
 func (d *terminalDisplayer) flush() {
 	if f, ok := d.w.(http.Flusher); ok {
 		f.Flush()
@@ -31,29 +35,30 @@ func (d *terminalDisplayer) flush() {
 }
 
 func (d *terminalDisplayer) writeHeader() {
-	d.writeAndFlush("                              \033[32mSylvain Cleymans\033[0m\n")
-	d.writeAndFlush("                              ----------------\n")
-	d.writeAndFlush("                             Software Engineer\n")
-	d.writeAndFlush("                              contact@sycl.dev\n")
+	d.write("                              \033[32mSylvain Cleymans\033[0m\n")
+	d.write("                              ----------------\n")
+	d.write("                             Software Engineer\n")
+	d.write("                              contact@sycl.dev\n")
+	d.flush()
 }
 
 func (d *terminalDisplayer) render() {
 	gopherSprites := []*Sprite{
-		&Sprite{
+		{
 			bgColors: gopherBg,
 			fgColors: gopherFg,
 			chars:    gopherChars,
 			posX:     30,
 			posY:     18,
 		},
-		&Sprite{
+		{
 			bgColors: gopherBg2,
 			fgColors: gopherFg2,
 			chars:    gopherChars2,
 			posX:     30,
 			posY:     18,
 		},
-		&Sprite{
+		{
 			bgColors: gopherBg3,
 			fgColors: gopherFg3,
 			chars:    gopherChars3,
@@ -70,20 +75,27 @@ func (d *terminalDisplayer) render() {
 		posY:     15,
 	}
 	cloudSprites := []*Sprite{
-		&Sprite{
+		{
 			bgColors: cloudBg,
 			fgColors: cloudFg,
 			chars:    cloudChars,
 			posX:     75,
 			posY:     0,
 		},
-		&Sprite{
+		{
 			bgColors: cloudBg,
 			fgColors: cloudFg,
 			chars:    cloudChars,
 			posX:     55,
 			posY:     3,
 		},
+	}
+	kiwiSprite := &Sprite{
+		bgColors: kiwiBg,
+		fgColors: kiwiFg,
+		chars:    kiwiChars,
+		posX:     100,
+		posY:     22,
 	}
 	step := 0
 	gopher := 0
@@ -92,6 +104,7 @@ func (d *terminalDisplayer) render() {
 		d.clear()
 		d.writeHeader()
 		d.canvas.Clear()
+		d.canvas.DrawSprite(kiwiSprite)
 		if step%3 == 0 {
 			gopher = (gopher + 1) % len(gopherSprites)
 		}
@@ -103,10 +116,15 @@ func (d *terminalDisplayer) render() {
 		d.canvas.DisplayCanvas()
 		if step%2 == 0 {
 			treeSprite.posX--
+			kiwiSprite.posX--
 		}
 
 		if treeSprite.posX < -15 {
 			treeSprite.posX = rand.Intn(80) + 80
+		}
+
+		if kiwiSprite.posX < -15 {
+			kiwiSprite.posX = rand.Intn(100) + 80
 		}
 
 		for _, cloud := range cloudSprites {
@@ -123,7 +141,7 @@ func (d *terminalDisplayer) render() {
 			break
 		}
 	}
-	d.writeAndFlush("\033[0mSee you!\n")
+	d.writeAndFlush("\033[0mSee you later!\n")
 }
 
 func consoleHandler(w http.ResponseWriter, r *http.Request) {

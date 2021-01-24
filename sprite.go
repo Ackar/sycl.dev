@@ -140,6 +140,24 @@ var gopherFg3 = []string{
 	"  2    2  ",
 }
 
+var kiwiChars = []string{
+	"   .  ",
+	"     \\",
+	"| |   ",
+}
+
+var kiwiFg = []string{
+	"      ",
+	"     4",
+	"2 2   ",
+}
+
+var kiwiBg = []string{
+	"2222  ",
+	"222   ",
+	"      ",
+}
+
 type Sprite struct {
 	fgColors []string
 	bgColors []string
