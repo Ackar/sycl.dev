@@ -3,75 +3,72 @@
 <head>
     <title>Sylvain Cleymans' homepage</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Sunflower:300" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous">
     <style>
         body {
             height: 100%;
             overflow: hidden;
-            background: url(bg.jpg);
+            background-image: url(bg.jpg);
             background-size: cover;
+            background-position: center;
             margin: 0;
         }
 
         div#content {
-            height: auto;
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
+            width: 100%;
+            padding-top: 20px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,212,255,0) 300px);
         }
 
         h1 {
-            text-align: center;
             color: white;
             font-weight: bold;
             font-family: 'Montserrat', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         h2 {
-            text-align: center;
-            color: #c5d1e5;
+            color: white;
             font-family: 'Sunflower', sans-serif;
         }
 
         p {
-            text-align: center;
-            color: silver;
+            color: white;
             font-family: 'Montserrat', sans-serif;
             margin: auto;
-        }
-
-        div#curl {
-            text-align: center;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         div#curl p {
             display: inline-block;
             width: max-content;
-            background: black;
-            color: white;
+            background: #072f39;
+            color: rgb(224, 225, 230);
             padding: 15px;
-            margin: 15px;
-            border: 1px solid gray;
+            margin: 15px 0;
             -webkit-user-select: all;
             -moz-user-select: all;
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: none;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.4);
         }
 
         div#links {
-            text-align: center;
             margin-top: 20px;
         }
 
         div#links a {
-            color: silver;
-            transition: color 0.5s ease;
+            color: #f2ded1;
+            transition: color 0.3s ease;
             font-size: 2em;
             text-decoration: none;
             margin: 10px;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
         }
 
         div#links a:hover {
-            color: lightblue;
+            color: #ba907a;
         }
     </style>
 </head>
@@ -96,6 +93,9 @@
             </a>
             <a href="https://twitter.com/SylvainCl">
                 <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://unsplash.com/@sycl">
+                <i class="fab fa-unsplash"></i>
             </a>
         </div>
     </div>
